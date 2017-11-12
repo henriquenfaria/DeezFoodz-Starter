@@ -35,15 +35,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.raywenderlich.android.deezfoodz.R;
+import com.raywenderlich.android.deezfoodz.app.DeezFoodzApplication;
 import com.raywenderlich.android.deezfoodz.app.StringUtils;
 import com.raywenderlich.android.deezfoodz.model.Food;
 import com.raywenderlich.android.deezfoodz.model.FoodzItem;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FoodActivity extends AppCompatActivity implements FoodView {
 
+  @Inject
   FoodPresenter presenter;
 
   public static final String EXTRA_FOOD_ID = "EXTRA_FOOD_ID";
@@ -77,11 +81,12 @@ public class FoodActivity extends AppCompatActivity implements FoodView {
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+    ((DeezFoodzApplication) getApplication()).getAppComponent().inject(this);
+
     ButterKnife.bind(this);
 
     String foodId = getIntent().getStringExtra(EXTRA_FOOD_ID);
 
-    presenter = new FoodPresenterImpl();
     presenter.setView(this);
     presenter.getFood(foodId);
   }

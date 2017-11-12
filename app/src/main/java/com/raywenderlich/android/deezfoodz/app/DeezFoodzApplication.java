@@ -24,10 +24,25 @@ package com.raywenderlich.android.deezfoodz.app;
 
 import android.app.Application;
 
-public class DeezFoodzApplication extends Application {
+import com.raywenderlich.android.deezfoodz.dagger.AppComponent;
+import com.raywenderlich.android.deezfoodz.dagger.AppModule;
+import com.raywenderlich.android.deezfoodz.dagger.DaggerAppComponent;
 
-  @Override
-  public void onCreate() {
-    super.onCreate();
-  }
+public class DeezFoodzApplication extends Application {
+    private AppComponent appComponent;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        appComponent = initDagger(this);
+    }
+    protected AppComponent initDagger(DeezFoodzApplication application) {
+        return DaggerAppComponent.builder()
+                .appModule(new AppModule(application))
+                .build();
+    }
+    public AppComponent getAppComponent() {
+        return appComponent;
+    }
+
 }

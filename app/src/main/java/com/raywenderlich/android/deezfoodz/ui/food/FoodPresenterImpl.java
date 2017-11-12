@@ -22,12 +22,14 @@
 
 package com.raywenderlich.android.deezfoodz.ui.food;
 
+import android.content.Context;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.util.Log;
 
 import com.raywenderlich.android.deezfoodz.R;
 import com.raywenderlich.android.deezfoodz.app.Constants;
+import com.raywenderlich.android.deezfoodz.app.DeezFoodzApplication;
 import com.raywenderlich.android.deezfoodz.model.Food;
 import com.raywenderlich.android.deezfoodz.model.FoodNutrient;
 import com.raywenderlich.android.deezfoodz.model.FoodResponse;
@@ -35,16 +37,22 @@ import com.raywenderlich.android.deezfoodz.network.UsdaApi;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FoodPresenterImpl implements FoodPresenter {
 
+  @Inject
+  UsdaApi usdaApi;
+
   private FoodView view;
+
+  public FoodPresenterImpl(Context context) {
+    ((DeezFoodzApplication)context).getAppComponent().inject(this);
+  }
 
   @Override
   public void setView(FoodView view) {
@@ -54,15 +62,6 @@ public class FoodPresenterImpl implements FoodPresenter {
   @Override
   public void getFood(String foodId) {
     view.showLoading();
-
-    Converter.Factory converter = GsonConverterFactory.create();
-
-    Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(converter)
-        .build();
-
-    UsdaApi usdaApi = retrofit.create(UsdaApi.class);
 
     usdaApi.getFoodItem(foodId).enqueue(new Callback<FoodResponse>() {
       @Override

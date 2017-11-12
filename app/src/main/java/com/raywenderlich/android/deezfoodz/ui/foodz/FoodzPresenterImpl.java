@@ -22,25 +22,33 @@
 
 package com.raywenderlich.android.deezfoodz.ui.foodz;
 
+import android.content.Context;
+
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
-import com.raywenderlich.android.deezfoodz.app.Constants;
+import com.raywenderlich.android.deezfoodz.app.DeezFoodzApplication;
 import com.raywenderlich.android.deezfoodz.model.FoodzItem;
 import com.raywenderlich.android.deezfoodz.model.FoodzListResponse;
 import com.raywenderlich.android.deezfoodz.network.UsdaApi;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FoodzPresenterImpl implements FoodzPresenter {
 
+  @Inject
+  UsdaApi usdaApi;
+
   private FoodzView view;
+
+  public FoodzPresenterImpl(Context context) {
+    ((DeezFoodzApplication)context).getAppComponent().inject(this);
+  }
 
   @Override
   public void setView(FoodzView view) {
@@ -50,15 +58,6 @@ public class FoodzPresenterImpl implements FoodzPresenter {
   @Override
   public void getFoodz() {
     view.showLoading();
-
-    Converter.Factory converter = GsonConverterFactory.create();
-
-    Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(converter)
-        .build();
-
-    UsdaApi usdaApi = retrofit.create(UsdaApi.class);
 
     usdaApi.getFoodzList().enqueue(new Callback<FoodzListResponse>() {
       @Override

@@ -22,6 +22,7 @@
 
 package com.raywenderlich.android.deezfoodz.network;
 
+import com.raywenderlich.android.deezfoodz.BuildConfig;
 import com.raywenderlich.android.deezfoodz.app.Constants;
 import com.raywenderlich.android.deezfoodz.model.FoodResponse;
 import com.raywenderlich.android.deezfoodz.model.FoodzListResponse;
@@ -32,9 +33,9 @@ import retrofit2.http.Query;
 
 public interface UsdaApi {
 
-  @GET("ndb/list?api_key=" + Constants.API_KEY)
+  @GET("ndb/list?api_key=" + BuildConfig.NDB_API)
   Call<FoodzListResponse> getFoodzList();
 
-  @GET("ndb/nutrients?api_key=" + Constants.API_KEY + "&nutrients=" + Constants.SUGAR_NUTRIENT)
+  @GET("ndb/nutrients?api_key=" + BuildConfig.NDB_API + "&nutrients=" + Constants.SUGAR_NUTRIENT)
   Call<FoodResponse> getFoodItem(@Query("ndbno") String foodId);
 }

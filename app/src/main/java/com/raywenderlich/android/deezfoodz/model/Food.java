@@ -26,27 +26,27 @@ import java.util.List;
 
 public class Food {
 
-  private String ndbno;
+    private String ndbno;
 
-  private String name;
+    private String name;
 
-  private String measure;
+    private String measure;
 
-  private List<FoodNutrient> nutrients;
+    private List<FoodNutrient> nutrients;
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public String getNdbno() {
-    return ndbno;
-  }
+    public String getNdbno() {
+        return ndbno;
+    }
 
-  public String getMeasure() {
-    return measure;
-  }
+    public String getMeasure() {
+        return measure;
+    }
 
-  public List<FoodNutrient> getNutrients() {
-    return nutrients;
-  }
+    public List<FoodNutrient> getNutrients() {
+        return nutrients;
+    }
 }

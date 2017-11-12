@@ -41,49 +41,50 @@ import retrofit2.Response;
 
 public class FoodzPresenterImpl implements FoodzPresenter {
 
-  @Inject
-  UsdaApi usdaApi;
+    @Inject
+    UsdaApi usdaApi;
 
-  private FoodzView view;
+    private FoodzView view;
 
-  public FoodzPresenterImpl(Context context) {
-    ((DeezFoodzApplication)context).getAppComponent().inject(this);
-  }
+    public FoodzPresenterImpl(Context context) {
+        ((DeezFoodzApplication) context).getAppComponent().inject(this);
+    }
 
-  @Override
-  public void setView(FoodzView view) {
-    this.view = view;
-  }
+    @Override
+    public void setView(FoodzView view) {
+        this.view = view;
+    }
 
-  @Override
-  public void getFoodz() {
-    view.showLoading();
+    @Override
+    public void getFoodz() {
+        view.showLoading();
 
-    usdaApi.getFoodzList().enqueue(new Callback<FoodzListResponse>() {
-      @Override
-      public void onResponse(Call<FoodzListResponse> call, Response<FoodzListResponse> response) {
+        usdaApi.getFoodzList().enqueue(new Callback<FoodzListResponse>() {
+            @Override
+            public void onResponse(Call<FoodzListResponse> call, Response<FoodzListResponse>
+                    response) {
 
-        if (response.code() != 200) {
+                if (response.code() != 200) {
 
-          view.showErrorMessage();
+                    view.showErrorMessage();
 
-        } else {
+                } else {
 
-          List<FoodzItem> foodzItemList = Stream.of(response.body().getList().getItem())
-              .filter(foodzItem -> !foodzItem.getName().contains("ERROR"))
-              .collect(Collectors.toList());
+                    List<FoodzItem> foodzItemList = Stream.of(response.body().getList().getItem())
+                            .filter(foodzItem -> !foodzItem.getName().contains("ERROR"))
+                            .collect(Collectors.toList());
 
-          view.showFoodz(foodzItemList);
-        }
-        view.hideLoading();
-      }
+                    view.showFoodz(foodzItemList);
+                }
+                view.hideLoading();
+            }
 
-      @Override
-      public void onFailure(Call<FoodzListResponse> call, Throwable t) {
-        view.showErrorMessage();
-        view.hideLoading();
-      }
-    });
-  }
+            @Override
+            public void onFailure(Call<FoodzListResponse> call, Throwable t) {
+                view.showErrorMessage();
+                view.hideLoading();
+            }
+        });
+    }
 
 }

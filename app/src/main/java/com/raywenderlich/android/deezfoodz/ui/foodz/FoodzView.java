@@ -27,13 +27,13 @@ import com.raywenderlich.android.deezfoodz.model.FoodzItem;
 import java.util.List;
 
 public interface FoodzView {
-  void showLoading();
+    void showLoading();
 
-  void hideLoading();
+    void hideLoading();
 
-  void showFoodz(List<FoodzItem> foodzItemList);
+    void showFoodz(List<FoodzItem> foodzItemList);
 
-  void showErrorMessage();
+    void showErrorMessage();
 
-  void launchFoodDetail(FoodzItem foodzItem);
+    void launchFoodDetail(FoodzItem foodzItem);
 }

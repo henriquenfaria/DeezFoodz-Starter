@@ -47,89 +47,89 @@ import butterknife.ButterKnife;
 
 public class FoodzActivity extends AppCompatActivity implements FoodzView {
 
-  @Inject
-  FoodzPresenter presenter;
+    @Inject
+    FoodzPresenter presenter;
 
-  @BindView(R.id.activity_foodz_recyclerView)
-  RecyclerView foodzRecyclerView;
+    @BindView(R.id.activity_foodz_recyclerView)
+    RecyclerView foodzRecyclerView;
 
 
-  @BindView(R.id.activity_foodz_progressBar)
-  ProgressBar progressBar;
+    @BindView(R.id.activity_foodz_progressBar)
+    ProgressBar progressBar;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_foodz);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_foodz);
 
-    ((DeezFoodzApplication)getApplication()).getAppComponent().inject(this);
+        ((DeezFoodzApplication) getApplication()).getAppComponent().inject(this);
 
-    ButterKnife.bind(this);
+        ButterKnife.bind(this);
 
-    foodzRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        foodzRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-    presenter.setView(this);
-    presenter.getFoodz();
-  }
+        presenter.setView(this);
+        presenter.getFoodz();
+    }
 
   /*
    * FoodzView
    */
 
-  @Override
-  public void showLoading() {
-    progressBar.setVisibility(View.VISIBLE);
-  }
+    @Override
+    public void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
 
-  @Override
-  public void hideLoading() {
-    progressBar.setVisibility(View.GONE);
-  }
+    @Override
+    public void hideLoading() {
+        progressBar.setVisibility(View.GONE);
+    }
 
-  @Override
-  public void showFoodz(List<FoodzItem> foodzItemList) {
-    foodzRecyclerView.setAdapter(new FoodzAdapter(foodzItemList));
-    foodzRecyclerView.getAdapter().notifyDataSetChanged();
-  }
+    @Override
+    public void showFoodz(List<FoodzItem> foodzItemList) {
+        foodzRecyclerView.setAdapter(new FoodzAdapter(foodzItemList));
+        foodzRecyclerView.getAdapter().notifyDataSetChanged();
+    }
 
-  @Override
-  public void showErrorMessage() {
-    Toast.makeText(this, R.string.FoodzListError, Toast.LENGTH_SHORT).show();
-  }
+    @Override
+    public void showErrorMessage() {
+        Toast.makeText(this, R.string.FoodzListError, Toast.LENGTH_SHORT).show();
+    }
 
-  @Override
-  public void launchFoodDetail(FoodzItem foodzItem) {
-    FoodActivity.launch(this, foodzItem);
-  }
+    @Override
+    public void launchFoodDetail(FoodzItem foodzItem) {
+        FoodActivity.launch(this, foodzItem);
+    }
 
   /*
    * Inner Classes
    */
 
-  class FoodzAdapter extends RecyclerView.Adapter<FoodzViewHolder> {
+    class FoodzAdapter extends RecyclerView.Adapter<FoodzViewHolder> {
 
-    private List<FoodzItem> foodzItemList;
+        private List<FoodzItem> foodzItemList;
 
-    FoodzAdapter(List<FoodzItem> foodzItemList) {
-      this.foodzItemList = foodzItemList;
+        FoodzAdapter(List<FoodzItem> foodzItemList) {
+            this.foodzItemList = foodzItemList;
+        }
+
+        @Override
+        public FoodzViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(FoodzActivity.this);
+            return new FoodzViewHolder(inflater.inflate(R.layout.list_item_food, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(FoodzViewHolder holder, int position) {
+            FoodzItem foodzItem = foodzItemList.get(position);
+            holder.getFoodName().setText(StringUtils.stripPrefix(foodzItem.getName()));
+            holder.getContainer().setOnClickListener(v -> launchFoodDetail(foodzItem));
+        }
+
+        @Override
+        public int getItemCount() {
+            return foodzItemList.size();
+        }
     }
-
-    @Override
-    public FoodzViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-      LayoutInflater inflater = LayoutInflater.from(FoodzActivity.this);
-      return new FoodzViewHolder(inflater.inflate(R.layout.list_item_food, parent, false));
-    }
-
-    @Override
-    public void onBindViewHolder(FoodzViewHolder holder, int position) {
-      FoodzItem foodzItem = foodzItemList.get(position);
-      holder.getFoodName().setText(StringUtils.stripPrefix(foodzItem.getName()));
-      holder.getContainer().setOnClickListener(v -> launchFoodDetail(foodzItem));
-    }
-
-    @Override
-    public int getItemCount() {
-      return foodzItemList.size();
-    }
-  }
 }

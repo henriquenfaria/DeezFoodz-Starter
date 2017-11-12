@@ -28,13 +28,13 @@ import android.support.annotation.DrawableRes;
 import com.raywenderlich.android.deezfoodz.model.Food;
 
 public interface FoodPresenter {
-  void setView(FoodView view);
+    void setView(FoodView view);
 
-  void getFood(String foodId);
+    void getFood(String foodId);
 
-  @ColorRes
-  int getFoodColor(Food food);
+    @ColorRes
+    int getFoodColor(Food food);
 
-  @DrawableRes
-  int getFoodImage(Food food);
+    @DrawableRes
+    int getFoodImage(Food food);
 }

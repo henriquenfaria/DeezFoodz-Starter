@@ -26,9 +26,9 @@ import java.util.List;
 
 public class FoodList {
 
-  private List<Food> foods;
+    private List<Food> foods;
 
-  public List<Food> getFoods() {
-    return foods;
-  }
+    public List<Food> getFoods() {
+        return foods;
+    }
 }

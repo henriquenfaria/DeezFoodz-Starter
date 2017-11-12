@@ -24,18 +24,18 @@ package com.raywenderlich.android.deezfoodz.model;
 
 public class FoodNutrient {
 
-  private String nutrient;
+    private String nutrient;
 
-  private String unit;
+    private String unit;
 
-  private String value;
+    private String value;
 
-  @Override
-  public String toString() {
-    return nutrient + ": " + value + " " + unit;
-  }
+    @Override
+    public String toString() {
+        return nutrient + ": " + value + " " + unit;
+    }
 
-  public String getValue() {
-    return value;
-  }
+    public String getValue() {
+        return value;
+    }
 }

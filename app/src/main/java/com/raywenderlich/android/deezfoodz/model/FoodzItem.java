@@ -24,15 +24,15 @@ package com.raywenderlich.android.deezfoodz.model;
 
 public class FoodzItem {
 
-  private String id;
+    private String id;
 
-  private String name;
+    private String name;
 
-  public String getId() {
-    return id;
-  }
+    public String getId() {
+        return id;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 }

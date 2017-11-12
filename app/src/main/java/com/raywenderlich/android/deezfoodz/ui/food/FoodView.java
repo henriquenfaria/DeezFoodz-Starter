@@ -25,11 +25,11 @@ package com.raywenderlich.android.deezfoodz.ui.food;
 import com.raywenderlich.android.deezfoodz.model.Food;
 
 public interface FoodView {
-  void showLoading();
+    void showLoading();
 
-  void hideLoading();
+    void hideLoading();
 
-  void showFood(Food food);
+    void showFood(Food food);
 
-  void showErrorMessage();
+    void showErrorMessage();
 }

@@ -31,20 +31,20 @@ import com.raywenderlich.android.deezfoodz.R;
 
 public class FoodzViewHolder extends RecyclerView.ViewHolder {
 
-  private ViewGroup container;
-  private TextView foodName;
+    private ViewGroup container;
+    private TextView foodName;
 
-  FoodzViewHolder(View view) {
-    super(view);
-    container = (ViewGroup) view.findViewById(R.id.list_item_food_container);
-    foodName = (TextView) view.findViewById(R.id.list_item_food_name);
-  }
+    FoodzViewHolder(View view) {
+        super(view);
+        container = (ViewGroup) view.findViewById(R.id.list_item_food_container);
+        foodName = (TextView) view.findViewById(R.id.list_item_food_name);
+    }
 
-  public ViewGroup getContainer() {
-    return container;
-  }
+    public ViewGroup getContainer() {
+        return container;
+    }
 
-  public TextView getFoodName() {
-    return foodName;
-  }
+    public TextView getFoodName() {
+        return foodName;
+    }
 }

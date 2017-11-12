@@ -36,11 +36,13 @@ public class DeezFoodzApplication extends Application {
         super.onCreate();
         appComponent = initDagger(this);
     }
+
     protected AppComponent initDagger(DeezFoodzApplication application) {
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(application))
                 .build();
     }
+
     public AppComponent getAppComponent() {
         return appComponent;
     }

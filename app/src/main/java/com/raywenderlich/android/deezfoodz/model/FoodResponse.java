@@ -24,9 +24,9 @@ package com.raywenderlich.android.deezfoodz.model;
 
 public class FoodResponse {
 
-  private FoodList report;
+    private FoodList report;
 
-  public FoodList getReport() {
-    return report;
-  }
+    public FoodList getReport() {
+        return report;
+    }
 }

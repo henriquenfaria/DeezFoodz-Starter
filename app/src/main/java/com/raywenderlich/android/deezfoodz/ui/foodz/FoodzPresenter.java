@@ -23,7 +23,7 @@
 package com.raywenderlich.android.deezfoodz.ui.foodz;
 
 public interface FoodzPresenter {
-  void setView(FoodzView view);
+    void setView(FoodzView view);
 
-  void getFoodz();
+    void getFoodz();
 }
